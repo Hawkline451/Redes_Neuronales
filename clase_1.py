@@ -28,22 +28,23 @@ class SumGate():
   # return (sum of two bits, carry)
   def sum(self, in_list):
     (x1,x2) = in_list
-    out1 = nand_perceptron.run_perceptron(in_list)
+    out1 = self.nand_perceptron.run_perceptron(in_list)
 
     in_list2 = (x1, out1)
-    out2 = nand_perceptron.run_perceptron(in_list2)
+    out2 = self.nand_perceptron.run_perceptron(in_list2)
 
     in_list3 = (out1, x2)
-    out3 = nand_perceptron.run_perceptron(in_list3)
+    out3 = self.nand_perceptron.run_perceptron(in_list3)
 
     in_list4 = (out2,out3)
-    sum = nand_perceptron.run_perceptron(in_list4)
+    sum = self.nand_perceptron.run_perceptron(in_list4)
 
     in_list5 = (out1,out1)
-    carry = nand_perceptron.run_perceptron(in_list5)
+    carry = self.nand_perceptron.run_perceptron(in_list5)
 
     return (sum, carry)
 
+'''
 w_list = (1,1)
 bias = -1.5
 and_perceptron = FirstPerceptron(w_list, bias)
@@ -62,3 +63,4 @@ in_list = (1,0)
 
 sum_gate = SumGate()
 print(sum_gate.sum(in_list))
+'''
