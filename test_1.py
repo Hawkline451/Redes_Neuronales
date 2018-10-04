@@ -8,10 +8,10 @@ class Test1(unittest.TestCase):
         bias = -1.5
         and_perceptron = clase_1.FirstPerceptron(w_list, bias)
         
-        result_1_1 = and_perceptron.run_perceptron((1,1))
-        result_1_0 = and_perceptron.run_perceptron((1,0))
-        result_0_1 = and_perceptron.run_perceptron((0,1))
-        result_0_0 = and_perceptron.run_perceptron((0,0))
+        result_1_1 = and_perceptron.feed_perceptron((1,1))
+        result_1_0 = and_perceptron.feed_perceptron((1,0))
+        result_0_1 = and_perceptron.feed_perceptron((0,1))
+        result_0_0 = and_perceptron.feed_perceptron((0,0))
 
         result = (result_1_1, result_1_0, result_0_1, result_0_0)
         self.assertEqual(result, (1, 0, 0, 0))
@@ -21,10 +21,10 @@ class Test1(unittest.TestCase):
         bias = -.5
         or_perceptron = clase_1.FirstPerceptron(w_list, bias)
         
-        result_1_1 = or_perceptron.run_perceptron((1,1))
-        result_1_0 = or_perceptron.run_perceptron((1,0))
-        result_0_1 = or_perceptron.run_perceptron((0,1))
-        result_0_0 = or_perceptron.run_perceptron((0,0))
+        result_1_1 = or_perceptron.feed_perceptron((1,1))
+        result_1_0 = or_perceptron.feed_perceptron((1,0))
+        result_0_1 = or_perceptron.feed_perceptron((0,1))
+        result_0_0 = or_perceptron.feed_perceptron((0,0))
 
         result = (result_1_1, result_1_0, result_0_1, result_0_0)
         self.assertEqual(result, (1, 1, 1, 0))
@@ -34,10 +34,10 @@ class Test1(unittest.TestCase):
         bias = 3
         nand_perceptron = clase_1.FirstPerceptron(w_list, bias)
         
-        result_1_1 = nand_perceptron.run_perceptron((1,1))
-        result_1_0 = nand_perceptron.run_perceptron((1,0))
-        result_0_1 = nand_perceptron.run_perceptron((0,1))
-        result_0_0 = nand_perceptron.run_perceptron((0,0))
+        result_1_1 = nand_perceptron.feed_perceptron((1,1))
+        result_1_0 = nand_perceptron.feed_perceptron((1,0))
+        result_0_1 = nand_perceptron.feed_perceptron((0,1))
+        result_0_0 = nand_perceptron.feed_perceptron((0,0))
 
         result = (result_1_1, result_1_0, result_0_1, result_0_0)
         self.assertEqual(result, (0, 1, 1, 1))
