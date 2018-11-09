@@ -10,26 +10,26 @@ import sys
 
 def main():
 
-    # Dependiendo de los pesos iniciales se necesitan entre 1500 y 200 epocas. Sobre 2000 epocas entrega una precision sobre
+    # Dependiendo de los pesos iniciales se necesitan entre 1000 y 1500 epocas. Sobre 2000 epocas entrega una precision sobre
     # el 95% en los casos de prueba, aunque dependiendo de los pesos iniciales podemos alcanzar un overfitting a las 1000 epocas :(
     try:
         EPOCHS = int(sys.argv[1])
         learning_rate = float(sys.argv[2])
     except:
-        EPOCHS = 3000
-        learning_rate = .1
+        EPOCHS = 1000
+        learning_rate = .2
 
     '''
     Creamos las capas
     '''
     # Se crean las capas necesarias para la red
-    # Input layer (neurons, inputs)
+    # Input layer (inputs, neurons)
     input_layer = Layer(5, 8)
     # Cada neurona es un input de la siguiente layer
-    # Hidden layer (neurons, inputs)
+    # Hidden layer (inputs, neurons)
     hidden_layer = Layer(8, 3)
     # Esta capa esta solo para experimentar, pro lo general usar 2 hidden layers entrega malos resultados
-    hidden_layer2 = Layer(3, 1)
+    hidden_layer2 = Layer(3,1)
 
     '''
     Inicializamos la red
@@ -46,7 +46,6 @@ def main():
     d.run_split()
     training_features = d.train_features
     training_classes = np.array([d.train_classes]).T
-    print(training_classes)
 
     neural_network.train(training_features, training_classes, EPOCHS)
 

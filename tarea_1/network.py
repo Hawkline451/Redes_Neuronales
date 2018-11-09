@@ -17,6 +17,9 @@ class Layer():
         self.weights = array([neuron.weight_list for neuron in self.neurons])
         self.bias = array([neuron.bias for neuron in self.neurons])
 
+        self.delta = []
+        self.out = []
+
 
 # La clase neural network soporta n capas, una de estas es el input con n-1 capas ocultas
 class NeuralNetwork():
@@ -33,47 +36,55 @@ class NeuralNetwork():
     def sigmoid_transfer_derivative(self, x):
         return x * (1 - x)
 
-    def backpropagation(self, in_layer, output_layer, input_data):
+    def backpropagation(self, layers, expected_out):
 
-        input_out = self.feed(input_data, in_layer)
-        hidden_out = self.feed(input_out, output_layer)
-
+        self.check(self.training_features)
         # Backpropagation
-        hidden_error = self.training_classes - hidden_out
-        hidden_delta = hidden_error * self.sigmoid_transfer_derivative(hidden_out)
+        for i in range(len(layers)):
+            idx = len(layers) - i - 1
+            # Es la ultima layer
+            if idx == (len(layers)-1):
+                #print("asd")
+                hidden_out = layers[idx].out
+                out_error = expected_out - hidden_out
+            else:
+                #print("asd2")
+                output_layer = layers[idx+1]
+                out_error = delta.dot(output_layer.weights)
 
-        hidden_adjustment = input_out.T.dot(hidden_delta)
+            input_out = layers[idx].out
+            delta = out_error * self.sigmoid_transfer_derivative(input_out)
+            self.layers[idx].delta= delta
 
-        input_error = hidden_delta.dot(output_layer.weights)
-        input_delta = input_error * self.sigmoid_transfer_derivative(input_out)
+        # Los inputs de una capa son los outs de la capa anterior
+        for i in range(len(layers)):
+            if i == 0:
+                input_data = self.training_features
+            else:
+                input_data = layers[i-1].out
 
-        input_adjustment = self.training_features.T.dot(input_delta)
+            input_adjustment = input_data.T.dot(self.layers[i].delta)
+            # Ajustamos los pesos
+            self.layers[i].weights += self.lr * input_adjustment.T
 
-        # Ajustamos los pesos
-        in_layer.weights += self.lr * input_adjustment.T
-        output_layer.weights += self.lr * hidden_adjustment.T
+            # Ajustamos los bias
+            for j in range(len(self.training_classes)):
+                self.layers[i].bias += self.lr * self.layers[i].delta[j]
 
-        # Ajustamos los bias al final de cada epoca
-        for i in range(len(self.training_classes)):
-            in_layer.bias += self.lr * input_delta[i]
-            output_layer.bias += self.lr * hidden_delta[i]
 
-        return hidden_out
+
+        return input_out, hidden_out
 
     def train(self, training_features, training_classes, epochs):
         self.training_features = training_features
         self.training_classes = training_classes
+        expected_out = training_classes
+
 
         for iteration in range(epochs):
 
-            # 1 input_layer n hidden layers
-            number_layers = len(self.layers) - 1
 
-            input_data = training_features
-            for idx in range(number_layers):
-                input_layer = self.layers[idx]
-                output_layer = self.layers[idx + 1]
-                input_data = self.backpropagation(input_layer, output_layer, input_data)
+            input_out, input_data = self.backpropagation(self.layers, expected_out)
 
             # print((input_delta[0]))
             # print((self.input.bias[0]))
@@ -86,6 +97,9 @@ class NeuralNetwork():
     def feed(self, inputs, layer):
         # print(np.shape(dot(inputs, layer.weights.T)))
         output = self.sigmoid(dot(inputs, layer.weights.T) + layer.bias.T)
+
+        layer.out = output
+
         return output
 
     def check(self, feature):
