@@ -82,7 +82,6 @@ class NeuralNetwork():
             self.getStats()
 
 
-
     # Feed Forward
     def feed(self, inputs, layer):
         # print(np.shape(dot(inputs, layer.weights.T)))

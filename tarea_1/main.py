@@ -4,11 +4,20 @@
 from manual_split import *
 from network import NeuralNetwork, Layer
 
-# Dependiendo de los pesos iniciales se necesitan entre 1500 y 200 epocas. Sobre 2000 epocas entrega una precision sobre
-# el 95% en los casos de prueba, aunque dependiendo de los pesos iniciales podemos alcanzar un overfitting a las 1000 epocas :(
-EPOCHS = 3000
+import matplotlib.pyplot as plt
+import sys
 
-if __name__ == '__main__':
+
+def main():
+
+    # Dependiendo de los pesos iniciales se necesitan entre 1500 y 200 epocas. Sobre 2000 epocas entrega una precision sobre
+    # el 95% en los casos de prueba, aunque dependiendo de los pesos iniciales podemos alcanzar un overfitting a las 1000 epocas :(
+    try:
+        EPOCHS = int(sys.argv[1])
+        learning_rate = float(sys.argv[2])
+    except:
+        EPOCHS = 3000
+        learning_rate = .1
 
     '''
     Creamos las capas
@@ -26,10 +35,10 @@ if __name__ == '__main__':
     Inicializamos la red
     '''
     # Neural network (podemos agregar la capa hidden_layer2 para experimentar
-    neural_network = NeuralNetwork([input_layer, hidden_layer])
+    neural_network = NeuralNetwork([input_layer, hidden_layer], learning_rate)
 
     '''
-    Caramos los datos de un archivo csv y entranamos
+    Creamos los datos de un archivo csv y entranamos
     '''
     d = Data('sin_normalizar.csv')
     # Primero se normaliza luego extremos los conjuntos de entranamiento y prueba
@@ -37,6 +46,7 @@ if __name__ == '__main__':
     d.run_split()
     training_features = d.train_features
     training_classes = np.array([d.train_classes]).T
+    print(training_classes)
 
     neural_network.train(training_features, training_classes, EPOCHS)
 
@@ -62,7 +72,6 @@ if __name__ == '__main__':
     '''
     Plot
     '''
-    import matplotlib.pyplot as plt
 
     # ploting errors
     plt.figure(0)
@@ -76,4 +85,6 @@ if __name__ == '__main__':
     plt.xlabel("Epochs")
     plt.plot(neural_network.precision)
 
+if __name__ == '__main__':
+    main()
     plt.show()
