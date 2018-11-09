@@ -1,7 +1,8 @@
 ﻿# Red Neuronal
 
 ### Prerequisitos
-NumPy ==
+NumPy == 1.15
+
 Python >= 3.6
 
 ### Comentarios
