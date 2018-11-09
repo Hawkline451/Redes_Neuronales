@@ -1,5 +1,6 @@
 from numpy import exp, random, dot, shape, array, mean
 
+
 class Neuron():
     def __init__(self, number_inputs, bias=0.0):
         # Random numbers desde -1 to 1 [0-1,2-1]
@@ -43,25 +44,25 @@ class NeuralNetwork():
         for i in range(len(layers)):
             idx = len(layers) - i - 1
             # Es la ultima layer
-            if idx == (len(layers)-1):
-                #print("asd")
+            if idx == (len(layers) - 1):
+                # print("asd")
                 hidden_out = layers[idx].out
                 out_error = expected_out - hidden_out
             else:
-                #print("asd2")
-                output_layer = layers[idx+1]
+                # print("asd2")
+                output_layer = layers[idx + 1]
                 out_error = delta.dot(output_layer.weights)
 
             input_out = layers[idx].out
             delta = out_error * self.sigmoid_transfer_derivative(input_out)
-            self.layers[idx].delta= delta
+            self.layers[idx].delta = delta
 
         # Los inputs de una capa son los outs de la capa anterior
         for i in range(len(layers)):
             if i == 0:
                 input_data = self.training_features
             else:
-                input_data = layers[i-1].out
+                input_data = layers[i - 1].out
 
             input_adjustment = input_data.T.dot(self.layers[i].delta)
             # Ajustamos los pesos
@@ -71,8 +72,6 @@ class NeuralNetwork():
             for j in range(len(self.training_classes)):
                 self.layers[i].bias += self.lr * self.layers[i].delta[j]
 
-
-
         return input_out, hidden_out
 
     def train(self, training_features, training_classes, epochs):
@@ -80,10 +79,7 @@ class NeuralNetwork():
         self.training_classes = training_classes
         expected_out = training_classes
 
-
         for iteration in range(epochs):
-
-
             input_out, input_data = self.backpropagation(self.layers, expected_out)
 
             # print((input_delta[0]))
@@ -91,7 +87,6 @@ class NeuralNetwork():
 
             # Obtenemos precision y error luego de cada epoca
             self.getStats()
-
 
     # Feed Forward
     def feed(self, inputs, layer):

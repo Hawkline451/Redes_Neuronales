@@ -19,13 +19,13 @@ class Test1(unittest.TestCase):
         training_classes = numpy.array([[0, 0, 0, 1]]).T
         neural_network.train(training_features, training_classes, 5000)
 
-        result_1_1 = round(neural_network.check([1,1])[0])
-        result_1_0 = round(neural_network.check([1,0])[0])
-        result_0_1 = round(neural_network.check([0,1])[0])
-        result_0_0 = round(neural_network.check([0,0])[0])
+        result_1_1 = round(neural_network.check([1, 1])[0])
+        result_1_0 = round(neural_network.check([1, 0])[0])
+        result_0_1 = round(neural_network.check([0, 1])[0])
+        result_0_0 = round(neural_network.check([0, 0])[0])
 
         result = (result_1_1, result_1_0, result_0_1, result_0_0)
-        self.assertEqual(result, (1, 0, 0, 0 ))
+        self.assertEqual(result, (1, 0, 0, 0))
 
     def test_xor(self):
         # Creamos las capas
@@ -56,7 +56,6 @@ class Test1(unittest.TestCase):
         # 20% test, 80% train
         self.assertEqual(len(d.test_features), 43)
         self.assertEqual(len(d.train_features), 172)
-
 
 
 if __name__ == '__main__':

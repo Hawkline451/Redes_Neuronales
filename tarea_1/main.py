@@ -7,9 +7,9 @@ from network import NeuralNetwork, Layer
 import matplotlib.pyplot as plt
 import sys
 
+import time
 
 def main():
-
     # Dependiendo de los pesos iniciales se necesitan entre 1000 y 1500 epocas. Sobre 2000 epocas entrega una precision sobre
     # el 95% en los casos de prueba, aunque dependiendo de los pesos iniciales podemos alcanzar un overfitting a las 1000 epocas :(
     try:
@@ -29,7 +29,7 @@ def main():
     # Hidden layer (inputs, neurons)
     hidden_layer = Layer(8, 3)
     # Esta capa esta solo para experimentar, pro lo general usar 2 hidden layers entrega malos resultados
-    hidden_layer2 = Layer(3,1)
+    hidden_layer2 = Layer(3, 1)
 
     '''
     Inicializamos la red
@@ -47,11 +47,14 @@ def main():
     training_features = d.train_features
     training_classes = np.array([d.train_classes]).T
 
+    start_time = time.time()
     neural_network.train(training_features, training_classes, EPOCHS)
+    print("Tiempo entrenamiento red: %s seconds" % (time.time() - start_time))
 
     '''
     Test test_data
     '''
+
     def test_data(features, classes):
         precision_count = 0
         for i in range(len(features)):
@@ -83,6 +86,7 @@ def main():
     plt.title("Precision")
     plt.xlabel("Epochs")
     plt.plot(neural_network.precision)
+
 
 if __name__ == '__main__':
     main()
