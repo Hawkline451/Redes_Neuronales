@@ -1,4 +1,4 @@
-El script node_generator, genera nodos apra el grafo aleatoriamente y los guarda en generated_nodews.csv
+El script node_generator, genera nodos para el grafo aleatoriamente y los guarda en generated_nodes.csv
 Se puede correr el algoritmo genetico desde main.py cambiando los paramatros directamente desde el codigo fuente o se puede ejecutar desde la consola con sus respectivos argumentos.
 
 $ python main.py <max_population> <generations> <mutation_rate> <tournament_size>

@@ -24,11 +24,11 @@ def main():
         tmp_node = Node(node)
         graph.add_node(tmp_node)
 
-    # Initialize population
+    # Generamos la poblacion inicial
     population = Population(graph, max_population)
     print("Distancia generacion 0      -> " + str(population.get_best().nodes_distance()))
 
-    # Corremos el algoritmo
+    # Corremos el algoritmo n veces dependiento de la cantidad de generaciones
     genetic = GeneticAlgorithm(graph, mutation_rate, tournament_size)
     population = genetic.reproduction(population)
     evolution = []
@@ -36,7 +36,7 @@ def main():
         population = genetic.reproduction(population)
         evolution.append(population.get_best().nodes_distance())
 
-    # Print final results
+    # Printeamos resultados
     print("Distancia ultima generacion -> " + str(population.get_best().nodes_distance()))
     print("Circuito:")
     res_path = population.get_best().path
