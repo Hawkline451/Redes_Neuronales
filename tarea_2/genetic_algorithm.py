@@ -27,11 +27,34 @@ class GeneticAlgorithm:
     def crossover(self, parent_1, parent_2):
         child = Path(self.graph)
         mixing_point = random.randint(0, len(parent_1.path) - 1)
+        end_point = random.randint(mixing_point, len(parent_1.path) - 1)
 
+        '''
         for i in range(mixing_point):
             child.path[i] = parent_1.path[i]
         for i in range(mixing_point, len(parent_2.path)):
             child.path[i] = parent_1.path[i]
+        '''
+        cross = True
+
+        for i in range(mixing_point):
+            child.path[i] = parent_1.path[i]
+        for i in range(mixing_point, len(parent_2.path)):
+            # Tratamos de hacer crossover hasta donde podamos
+            if (parent_2.path[i] not in child.path) and (cross is True):
+                child.path[i] = parent_2.path[i]
+            # Se hizo crossover con parent_2 hasta donde se pudo, completamos los nodos (genes) que faltan con parent_1
+            else:
+                cross = False
+                # Si el nodo no esta en el hijo insertamos
+                if parent_1.path[i] not in child.path:
+                    child.path[i] = parent_1.path[i]
+                # Si ya existe el nodo buscamos desde el nodo donde inicio el crossover un nodo para agregarle al hijo
+                else:
+                    for j in range(mixing_point, len(parent_1.path)):
+                        if parent_1.path[j] not in child.path:
+                            child.path[i] = parent_1.path[j]
+                            break
 
         return child
 
@@ -47,7 +70,7 @@ class GeneticAlgorithm:
                 individual.path[path_idx_2] = node_1
                 individual.path[path_idx_1] = node_2
         # Como se hace el swap reseteamos la distancia del circuito, luego hay que volver a calcularla
-        individual.reset_distance()
+        individual.reset_fitness()
 
     def tournament_selection(self, population):
         tournament = Population(self.graph, self.tournament_size)

@@ -15,8 +15,8 @@ class Node:
         return self.coord[1]
 
     def distance_to_node(self, node):
-        x_distance = np.abs(self.get_x() - node.get_x())
-        y_distance = np.abs(self.get_y() - node.get_y())
+        x_distance = self.get_x() - node.get_x()
+        y_distance = self.get_y() - node.get_y()
         distance = (x_distance ** 2 + y_distance ** 2) ** .5
         return distance
 
@@ -44,11 +44,11 @@ class Path:
     def generate_individual(self):
         for node_idx in range(self.graph_len):
             self.path[node_idx] = self.graph.nodes[node_idx]
-        self.reset_distance()
+        self.reset_fitness()
         random.shuffle(self.path)
 
     # Cada vez que cambiamos el camino moviendo un nodo resetamos fitness y distance, es necesario volver a calcular
-    def reset_distance(self):
+    def reset_fitness(self):
         self.fitness = 0.0
         self.distance = 0
 
@@ -65,6 +65,7 @@ class Path:
             from_node = self.path[node_idx]
             if node_idx + 1 < len(self.path):
                 to_node = self.path[node_idx + 1]
+            # Como es un circuito volvemos al primero
             else:
                 to_node = self.path[0]
             path_distance += from_node.distance_to_node(to_node)

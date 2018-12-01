@@ -8,3 +8,6 @@ max_population = 30
 generations = 500
 mutation_rate = 0.01
 tournament_size = 5
+
+Repo: 
+https://github.com/Hawkline451/Redes_Neuronales/tree/master/tarea_2
