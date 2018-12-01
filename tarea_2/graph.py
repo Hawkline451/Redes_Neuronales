@@ -47,13 +47,13 @@ class Path:
         self.reset_fitness()
         random.shuffle(self.path)
 
-    # Cada vez que cambiamos el camino moviendo un nodo resetamos fitness y distance, es necesario volver a calcular
+    # Cada vez que cambiamos el camino moviendo un nodo resetamos fitness y distance, luego sera necesario volver a calcularlas
     def reset_fitness(self):
         self.fitness = 0.0
         self.distance = 0
 
     def evaluate_fitness(self):
-        # Si la distancia es igual a 0 es porque el path fui inicializado pero todavia no sabemos la distancia,
+        # Si la distancia es igual a 0 es porque el path fue inicializado pero todavia no sabemos la distancia,
         # por lo que se debe calcular, analogo para el fitness
         self.distance = self.nodes_distance() if self.distance == 0 else self.distance
         self.fitness = 1 / self.distance if self.fitness == 0 else self.fitness

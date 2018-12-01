@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import sys
+import time
 
 from data import Data
 from genetic_algorithm import *
@@ -13,8 +14,8 @@ def main():
         tournament_size = int(sys.argv[3])
     except:
         max_population = 30
-        generations = 500
-        mutation_rate = 0.01
+        generations = 400
+        mutation_rate = 0.1
         tournament_size = 5
 
     nodes = Data("generated_nodes.csv").get_array()
@@ -72,6 +73,12 @@ def main():
     plt.grid(True)
 
 
+
 if __name__ == '__main__':
+
+    start_time = time.time()
     main()
+    print("\n--- %s seconds ---")
+    print((time.time() - start_time))
+
     plt.show()
