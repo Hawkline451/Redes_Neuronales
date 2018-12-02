@@ -22,6 +22,7 @@ Para probar diferentes palabras se deben modificar el arreglo de en main, por ej
 	word = ['0','1','1','0','0','1']
 	word = ['r','i','p']
 	
-Notar que los idividuos los crea eligiendo al azar letras de la palabra original, en el caso de bits elije dentro del arreglo 0 o 1, pero en el caso de una palabra con letras solo escoje usando las letras de la palabra, es posible corregir eso modificando <self.new_word[gene_idx] = np.random.choice(self.word)>, colocando el alfabeto completo solo proboca que se demore mas en adivinar :p
+Notar que los idividuos los crea eligiendo al azar letras de la palabra original, en el caso de bits elije dentro del arreglo 0 o 1, pero en el caso de una palabra con letras solo escoje usando las letras de la palabra, es posible corregir eso modificando <self.new_word[gene_idx] = np.random.choice(self.word)>, colocando el alfabeto completo solo proboca que se demore mas en adivinar :p .
+
 Repo con script para adivinar palabra:
 https://github.com/Hawkline451/Redes_Neuronales/blob/master/find_word.py
