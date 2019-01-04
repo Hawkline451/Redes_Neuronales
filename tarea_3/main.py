@@ -23,8 +23,11 @@ if __name__ == "__main__":
     ops = ['+', '-', '*']
     terminals = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'x']
 
-    # Gerneramos la expresion que se quiere aproximar
+    # Generamos la expresion que se quiere aproximar en notacion postfija
+    # (((x*x)-5)+(10*x))
     eq = ['x', 'x', '*', '5', '-', '10', 'x', '*', '+']
+
+
     eq_tree = ExpressionTree(eq)
     domain = [{'x' : 1},{'x' : 2},{'x' : 3},{'x' : 4}, {'x' : 5}, {'x' : 6},{'x' : 7},{'x' : 8},{'x' : 9}, {'x' : 10}]
     results = eq_tree.eval_function(domain)

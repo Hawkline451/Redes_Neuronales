@@ -61,6 +61,7 @@ class ExpressionTree:
         for idx in range(len(expected_vals)):
             error += abs(expected_vals[idx] - solution_list[idx])
 
+        # No quiero dividir por 0
         self.fitness = 1 / (error + .0000000000001)
         self. error = error
         return self.fitness
